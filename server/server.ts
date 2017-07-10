@@ -1,9 +1,10 @@
 import * as express from 'express';
 import * as http from 'http';
+import * as bodyParser from 'body-parser';
 
 import { StudentRepository } from '../repositories/student.repository';
 import { DbContex } from '../mongoDb/dbContext';
-import { Routes } from '../routes/routes';
+import { StudentsRoutes } from '../routes/routes';
 
 
 export class Server {
@@ -15,6 +16,7 @@ export class Server {
     constructor() {
         this.app = express();  
         this.bootstrap();
+        this.config();
         this.router();
         this.dbConnection();
     }    
@@ -30,10 +32,18 @@ export class Server {
     private dbConnection() {
         var db = new DbContex();
     }
+
+    public config() { 
+        this.app.use(bodyParser.json());       
+        this.app.use(bodyParser.urlencoded({
+            extended: true
+        }));
+    }
    
     private router(): void {   
         let repo = new StudentRepository();
-        let routes = new Routes(repo);
-        this.app.use('/api', routes.routesSet());     
+        let studentsRoutes = new StudentsRoutes(repo);        
+        this.app.use('/api/students', studentsRoutes.routesSet());  
+        
     }
 }

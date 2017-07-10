@@ -1,6 +1,6 @@
 import {  Document, Schema, Mongoose, model, Types } from 'mongoose';
 
-export interface IStudent  {   
+export interface IStudent  {    
     name: string;
     lastName: string;
     age: number;
@@ -27,10 +27,10 @@ export const AddressSchema = new Schema({
 });
 
 export const StudentSchema = new Schema({
-    name: { type: String },
-    lastName: String,
+    name: { type: String, required: true },
+    lastName: { type: String, required: true },
     age: Number,
-    email: String,
+    email: { type: String, required: true },
     address: [AddressSchema]
 });
 

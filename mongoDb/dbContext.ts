@@ -54,12 +54,22 @@ export class DbContex{
                number: 1050
            }]
                    
+       },
+       {
+           name: 'Luis',
+           lastName: 'Oliveros',
+           age: 70,
+           email: 'luisoliveros@gmail.com',
+           address: [{
+               street: 'Somosa',
+               number: 1050
+           }]
+
        }];
                
       
 
-       Student.find((err, students) => {
-           console.log(students.length);
+       Student.find((err, students) => {          
            if (students.length == 0) {
                for (let student of studentsSeed) {                  
                Student.create(student);                   
