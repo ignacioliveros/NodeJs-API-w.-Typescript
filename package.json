@@ -15,10 +15,11 @@
   "author": "LIO",
   "license": "ISC",
   "dependencies": {
-    "@types/body-parser": "^1.16.4",
+   
     "express": "^4.15.3"
   },
   "devDependencies": {
+    "@types/body-parser": "^1.16.4",
     "@types/express": "^4.0.36",
     "@types/mongoose": "^4.7.18",
     "body-parser": "^1.17.2",
@@ -26,6 +27,7 @@
     "mongoose": "^4.11.1",
     "nodemon": "^1.11.0",
     "ts-loader": "^2.2.2",
+    "tslint": "^5.5.0",
     "typescript": "^2.4.1",
     "webpack": "^3.0.0",
     "webpack-node-externals": "^1.6.0"

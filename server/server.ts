@@ -1,27 +1,26 @@
-import * as express from 'express';
-import * as http from 'http';
-import * as bodyParser from 'body-parser';
+import * as bodyParser from "body-parser";
+import * as express from "express";
+import * as http from "http";
 
-import { StudentRepository } from '../repositories/student.repository';
-import { DbContex } from '../mongoDb/dbContext';
-import { StudentsRoutes } from '../routes/routes';
-
+import { DbContex } from "../mongoDb/dbContext";
+import { StudentRepository } from "../repositories/student.repository";
+import { StudentsRoutes } from "../routes/routes";
 
 export class Server {
- 
+
     public app: express.Application;
-    private port=3000;
+    private port = 3000;
     private server: http.Server;
 
     constructor() {
-        this.app = express();  
+        this.app = express();
         this.bootstrap();
         this.config();
         this.router();
         this.dbConnection();
-    }    
+    }
 
-    private bootstrap() {              
+    private bootstrap() {
         this.server = http.createServer(this.app);
         this.server.listen(this.port);
         this.server.on("listening", () => {
@@ -30,20 +29,18 @@ export class Server {
     }
 
     private dbConnection() {
-        var db = new DbContex();
+        let db = new DbContex();
     }
 
-    public config() { 
-        this.app.use(bodyParser.json());       
-        this.app.use(bodyParser.urlencoded({
-            extended: true
-        }));
+    public config() {
+        this.app.use(bodyParser.json());
+        this.app.use(bodyParser.urlencoded({ extended: true }));
     }
-   
-    private router(): void {   
+
+    private router(): void {
         let repo = new StudentRepository();
-        let studentsRoutes = new StudentsRoutes(repo);        
-        this.app.use('/api/students', studentsRoutes.routesSet());  
-        
+        let studentsRoutes = new StudentsRoutes(repo);
+        this.app.use("/api/students", studentsRoutes.routesSet());
+
     }
 }

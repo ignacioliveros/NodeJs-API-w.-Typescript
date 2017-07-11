@@ -1,84 +1,81 @@
-import * as mongoose from 'mongoose';
+import * as mongoose from "mongoose";
 
-import { IStudent, IAddress } from '../mongoDb/models/studentModel'
-import Student from '../mongoDb/models/studentModel'
+import { IAddress, IStudent } from "../mongoDb/models/studentModel";
+import Student from "../mongoDb/models/studentModel";
 
-export class DbContex{
+export class DbContex {
 
-    constructor() { 
+    constructor() {
         this.dbConnection();
-        this.DbSeed(); //only for dev...
+        this.DbSeed(); // only for dev...
     }
 
    public  dbConnection() {
-        return mongoose.connect('mongodb://localhost/student');
-    }    
+        return mongoose.connect("mongodb://localhost/student");
+    }
 
-   DbSeed() {
+   private DbSeed() {
        let studentsSeed: IStudent[] = [{
-           name: 'Ignacio',
-           lastName: 'Oliveros',
+           name: "Ignacio",
+           lastName: "Oliveros",
            age: 37,
-           email: 'ignacioliveros@gmail.com',
+           email: "ignacioliveros@gmail.com",
            address: [{
-               street: 'Acuña de Figueroa',
+               street: "Acuña de Figueroa",
                number: 1511,
-               apartment: 'C',
-               floor: 8
+               apartment: "C",
+               floor: 8,
            },
            {
-               street: 'Somosa',
-               number: 1050
-           }
-           ]
+               number: 1050,
+               street: "Somosa",
+           },
+           ],
        },
        {
-           name: 'Joanna',
-           lastName: 'Roney',
+           name: "Joanna",
+           lastName: "Roney",
            age: 38,
-           email: 'joannaroney@gmail.com',
+           email: "joannaroney@gmail.com",
            address: [{
-               street: 'Acuña de Figueroa',
+               street: "Acuña de Figueroa",
                number: 1511,
-               apartment: 'C',
-               floor: 8
-           }]
+               apartment: "C",
+               floor: 8,
+           }],
        },
        {
-           name: 'Evangelina',
-           lastName: 'Oliveros',
+           name: "Evangelina",
+           lastName: "Oliveros",
            age: 39,
-           email: 'evanoliveros@gmail.com',
+           email: "evanoliveros@gmail.com",
            address: [{
-               street: 'Somosa',
-               number: 1050
-           }]
-                   
+               street: "Somosa",
+               number: 1050,
+           }],
+
        },
        {
-           name: 'Luis',
-           lastName: 'Oliveros',
+           name: "Luis",
+           lastName: "Oliveros",
            age: 70,
-           email: 'luisoliveros@gmail.com',
+           email: "luisoliveros@gmail.com",
            address: [{
-               street: 'Somosa',
-               number: 1050
-           }]
+               street: "Somosa",
+               number: 1050,
+           }],
 
        }];
-               
-      
 
-       Student.find((err, students) => {          
-           if (students.length == 0) {
-               for (let student of studentsSeed) {                  
-               Student.create(student);                   
+       Student.find((err, students) => {
+           if (students.length === 0) {
+               for (let student of studentsSeed) {
+               Student.create(student);
                }
            } else {
-               console.log('Db exist');
+               console.log("Db exist");
            }
        });
-   }  
+   }
 
 }
-

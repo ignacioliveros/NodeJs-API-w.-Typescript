@@ -1,6 +1,6 @@
-import {  Document, Schema, Mongoose, model, Types } from 'mongoose';
+import {  Document, model, Mongoose, Schema, Types } from "mongoose";
 
-export interface IStudent  {    
+export interface IStudent  {
     name: string;
     lastName: string;
     age: number;
@@ -8,33 +8,33 @@ export interface IStudent  {
     address: IAddress[];
 }
 
-export interface IAddress  {   
+export interface IAddress  {
     street: string;
     number: number;
     floor?: number;
-    apartment?: string;    
+    apartment?: string;
 }
 
 interface IAddressModel extends IAddress, Types.Subdocument { }
 
-export interface IStudentModel extends IStudent, Document { }
+interface IStudentModel extends IStudent, Document { }
 
 export const AddressSchema = new Schema({
-    street: String,
-    number: Number,
+    apartment: { type: String, required: false },
     floor: { type: Number, required: false },
-    apartment: { type: String, required: false }
+    number: Number,
+    street: String,
+
 });
 
 export const StudentSchema = new Schema({
-    name: { type: String, required: true },
-    lastName: { type: String, required: true },
+    address: [AddressSchema],
     age: Number,
     email: { type: String, required: true },
-    address: [AddressSchema]
+    lastName: { type: String, required: true },
+    name: { type: String, required: true },
 });
 
-
-const Student = model<IStudentModel>('Student', StudentSchema);
+const Student = model<IStudentModel>("Student", StudentSchema);
 
 export default Student;
