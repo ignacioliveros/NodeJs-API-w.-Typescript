@@ -17,7 +17,7 @@ export interface IAddress  {
 
 interface IAddressModel extends IAddress, Types.Subdocument { }
 
-interface IStudentModel extends IStudent, Document { }
+export interface IStudentModel extends IStudent, Document { }
 
 export const AddressSchema = new Schema({
     apartment: { type: String, required: false },
@@ -35,6 +35,4 @@ export const StudentSchema = new Schema({
     name: { type: String, required: true },
 });
 
-const Student = model<IStudentModel>("Student", StudentSchema);
-
-export default Student;
+export const Student = model<IStudentModel>("Student", StudentSchema);

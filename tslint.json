@@ -7,6 +7,9 @@
     "rules": {  "object-literal-sort-keys": [
         false
     ],
+    "member-access": [
+        false
+    ],
           "prefer-const":false,
           "no-console": [
               false
@@ -14,7 +17,7 @@
           "member-ordering": [
               false
           ],
-            "no-shadowed-variable": false   
+            "no-shadowed-variable": false
     },
     "rulesDirectory": []
 }

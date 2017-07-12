@@ -1,17 +1,17 @@
 import * as mongoose from "mongoose";
 
-import { IAddress, IStudent } from "../mongoDb/models/studentModel";
-import Student from "../mongoDb/models/studentModel";
+import { IAddress, IStudent, Student } from "../mongoDb/models/studentModel";
 
 export class DbContex {
 
+    private dbUrl: string = "mongodb://localhost/student";
     constructor() {
         this.dbConnection();
         this.DbSeed(); // only for dev...
     }
 
    public  dbConnection() {
-        return mongoose.connect("mongodb://localhost/student");
+        return mongoose.connect(this.dbUrl);
     }
 
    private DbSeed() {

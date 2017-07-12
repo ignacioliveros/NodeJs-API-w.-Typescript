@@ -1,56 +1,11 @@
-import Student from "../mongoDb/models/studentModel";
-import {IStudent} from "../mongoDb/models/studentModel";
+import { IStudent, IStudentModel } from "../mongoDb/models/studentModel";
+import { BaseRepository, IBaseRepository} from "./base.repository";
 
-export interface IStudentRepository {
-    GetAll(): Promise<{ students: IStudent[], err: any }>;
-    GetById(studentId: string): Promise<{ student: IStudent, err: any }>;
-    Create(student: IStudent): Promise<{ student: IStudent, err: any }>;
-    Update(studentToUpdate: IStudent, student: IStudent): Promise<{ raw: any, err: any }>;
-    Delete(studentToRemove: IStudent): Promise<{ err: any }>;
+// tslint:disable-next-line:no-empty-interface
+export interface IStudentRepository extends IBaseRepository < IStudent> {
+
 }
 
-export class StudentRepository implements IStudentRepository {
+export class StudentRepository extends BaseRepository<IStudent, IStudentModel> {
 
-   public GetAll(): Promise<{ students: IStudent[], err: any }> {
-       return new Promise((resolve) => {
-           Student.find((err, studentModel) => {
-               let students: IStudent[] = studentModel ;
-               resolve({ students, err });
-           });
-        });
-    }
-
-   public GetById(studentId: string): Promise<{ student: IStudent, err: any }> {
-       return new Promise((resolve) => {
-           Student.findById(studentId, (err, studentModel) => {
-               let student: IStudent = studentModel;
-               resolve({ student, err });
-           });
-       });
-   }
-
-   public Create(student: IStudent): Promise<{ student: IStudent, err: any }> {
-       return new Promise((resolve) => {
-           Student.create(student, (err, studentModel) => {
-               let student: IStudent = studentModel;
-               resolve({ student, err });
-           });
-       });
-   }
-
-   public Update(studentToUpdate: IStudent, student: IStudent ): Promise<{ raw: any, err: any }> {
-       return new Promise((resolve) => {
-                   Student.update(studentToUpdate, student, (err, raw) => {
-                       resolve({ raw, err });
-                   });
-       });
-   }
-
-   public Delete(studentToRemove: IStudent): Promise<{ err: any }> {
-       return new Promise((resolve) => {
-                   Student.findByIdAndRemove(studentToRemove, (err) => {
-                       resolve({ err });
-                   });
-       });
-   }
 }

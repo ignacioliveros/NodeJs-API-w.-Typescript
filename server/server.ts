@@ -3,6 +3,7 @@ import * as express from "express";
 import * as http from "http";
 
 import { DbContex } from "../mongoDb/dbContext";
+import {Student} from "../mongoDb/models/studentModel";
 import { StudentRepository } from "../repositories/student.repository";
 import { StudentsRoutes } from "../routes/routes";
 
@@ -38,8 +39,8 @@ export class Server {
     }
 
     private router(): void {
-        let repo = new StudentRepository();
-        let studentsRoutes = new StudentsRoutes(repo);
+        let studentsRepo = new StudentRepository(Student);
+        let studentsRoutes = new StudentsRoutes(studentsRepo);
         this.app.use("/api/students", studentsRoutes.routesSet());
 
     }

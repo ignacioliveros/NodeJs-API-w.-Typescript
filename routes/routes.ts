@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response, Router } from "express";
 
-import Student from "../mongoDb/models/studentModel";
 import { IStudent } from "../mongoDb/models/studentModel";
 import { IStudentRepository } from "../repositories/student.repository";
 
@@ -9,14 +8,14 @@ export class StudentsRoutes {
     public studentRouter: Router;
     public student: IStudent;
 
-    constructor(public repo: IStudentRepository) {
+    constructor(private studentRepo: IStudentRepository) {
         this.studentRouter = Router();
     }
 
     public routesSet() {
         this.studentRouter.route("/")
             .get((req: Request, res: Response) => {
-                this.repo.GetAll()
+                this.studentRepo.GetAll()
                     .then((data) => {
                         if (data.err) {
                             res.status(500).send(data.err);
@@ -26,7 +25,7 @@ export class StudentsRoutes {
                     });
             })
             .post((req: Request, res: Response) => {
-                this.repo.Create(req.body)
+                this.studentRepo.Create(req.body)
                     .then((data) => {
                         if (data.err) {
                             res.status(500).send(data.err);
@@ -38,7 +37,7 @@ export class StudentsRoutes {
             });
 
         this.studentRouter.use("/:studentId", (req: Request, res: Response, next: NextFunction) => {
-            this.repo.GetById(req.params.studentId)
+            this.studentRepo.GetById(req.params.studentId)
                 .then((data) => {
                     if (data.err) {
                         res.status(500).send(data.err);
@@ -57,7 +56,7 @@ export class StudentsRoutes {
                 res.json(req.object);
             })
             .put((req: Request, res: Response) => {
-                this.repo.Update(req.object, req.body)
+                this.studentRepo.Update(req.object, req.body)
                     .then((data) => {
                         if (data.err) {
                             res.status(500).send(data.err);
@@ -67,7 +66,7 @@ export class StudentsRoutes {
                     });
             })
             .delete((req: Request, res: Response) => {
-                this.repo.Delete(req.object)
+                this.studentRepo.Delete(req.object)
                     .then((data) => {
                         if (data.err) {
                             res.status(500).send(data.err);
