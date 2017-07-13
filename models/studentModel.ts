@@ -19,7 +19,7 @@ interface IAddressModel extends IAddress, Types.Subdocument { }
 
 export interface IStudentModel extends IStudent, Document { }
 
-export const AddressSchema = new Schema({
+const AddressSchema = new Schema({
     apartment: { type: String, required: false },
     floor: { type: Number, required: false },
     number: Number,
@@ -27,7 +27,7 @@ export const AddressSchema = new Schema({
 
 });
 
-export const StudentSchema = new Schema({
+const StudentSchema = new Schema({
     address: [AddressSchema],
     age: Number,
     email: { type: String, required: true },

@@ -1,81 +1,28 @@
 import * as mongoose from "mongoose";
 
-import { IAddress, IStudent, Student } from "../mongoDb/models/studentModel";
-
 export class DbContex {
 
-    private dbUrl: string = "mongodb://localhost/student";
-    constructor() {
-        this.dbConnection();
-        this.DbSeed(); // only for dev...
-    }
+    private connectionString: string = "mongodb://localhost/student";
+    connection = null;
 
-   public  dbConnection() {
-        return mongoose.connect(this.dbUrl);
-    }
-
-   private DbSeed() {
-       let studentsSeed: IStudent[] = [{
-           name: "Ignacio",
-           lastName: "Oliveros",
-           age: 37,
-           email: "ignacioliveros@gmail.com",
-           address: [{
-               street: "Acuña de Figueroa",
-               number: 1511,
-               apartment: "C",
-               floor: 8,
-           },
-           {
-               number: 1050,
-               street: "Somosa",
-           },
-           ],
-       },
-       {
-           name: "Joanna",
-           lastName: "Roney",
-           age: 38,
-           email: "joannaroney@gmail.com",
-           address: [{
-               street: "Acuña de Figueroa",
-               number: 1511,
-               apartment: "C",
-               floor: 8,
-           }],
-       },
-       {
-           name: "Evangelina",
-           lastName: "Oliveros",
-           age: 39,
-           email: "evanoliveros@gmail.com",
-           address: [{
-               street: "Somosa",
-               number: 1050,
-           }],
-
-       },
-       {
-           name: "Luis",
-           lastName: "Oliveros",
-           age: 70,
-           email: "luisoliveros@gmail.com",
-           address: [{
-               street: "Somosa",
-               number: 1050,
-           }],
-
-       }];
-
-       Student.find((err, students) => {
-           if (students.length === 0) {
-               for (let student of studentsSeed) {
-               Student.create(student);
-               }
-           } else {
-               console.log("Db exist");
+    public open(callback) {
+       const options = {};
+       mongoose.connect(this.connectionString, options, (err) => {
+           if (err) {
+               console.log("mongoose.connect() failed: " + err);
            }
        });
-   }
+       this.connection = mongoose.connection;
 
+       mongoose.connection.on("error", (err) => {
+           console.log("Error connecting to MongoDB: " + err);
+           callback(err, false);
+       });
+
+       mongoose.connection.once("open", () => {
+           console.log("We have connected to mongodb");
+           callback(null, true);
+       });
+
+    }
 }

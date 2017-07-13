@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response, Router } from "express";
 
-import { IStudent } from "../mongoDb/models/studentModel";
+import { IStudent } from "../models/studentModel";
 import { IStudentRepository } from "../repositories/student.repository";
 
 export class StudentsRoutes {

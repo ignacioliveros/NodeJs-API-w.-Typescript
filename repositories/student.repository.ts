@@ -1,4 +1,4 @@
-import { IStudent, IStudentModel } from "../mongoDb/models/studentModel";
+import { IStudent, IStudentModel } from "../models/studentModel";
 import { BaseRepository, IBaseRepository} from "./base.repository";
 
 // tslint:disable-next-line:no-empty-interface

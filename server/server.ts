@@ -2,8 +2,9 @@ import * as bodyParser from "body-parser";
 import * as express from "express";
 import * as http from "http";
 
+import {Student} from "../models/studentModel";
 import { DbContex } from "../mongoDb/dbContext";
-import {Student} from "../mongoDb/models/studentModel";
+import {  DbSeeder} from "../mongoDb/dbSeeder";
 import { StudentRepository } from "../repositories/student.repository";
 import { StudentsRoutes } from "../routes/routes";
 
@@ -16,12 +17,13 @@ export class Server {
     constructor() {
         this.app = express();
         this.bootstrap();
-        this.config();
+        this.initExpressMiddleWare();
         this.router();
         this.dbConnection();
     }
 
     private bootstrap() {
+        process.env.NODE_ENV = "development";
         this.server = http.createServer(this.app);
         this.server.listen(this.port);
         this.server.on("listening", () => {
@@ -30,10 +32,19 @@ export class Server {
     }
 
     private dbConnection() {
-        let db = new DbContex();
+        let database = new DbContex();
+        let seeder = new DbSeeder();
+        database.open(() => {
+            // Set NODE_ENV to 'development' to only run
+            // the seeder when in dev mode
+            if (process.env.NODE_ENV === "development") {
+                console.log("development");
+                seeder.init();
+             }
+        });
     }
 
-    public config() {
+    public initExpressMiddleWare() {
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: true }));
     }
