@@ -1,4 +1,5 @@
 import * as mongoose from "mongoose";
+
 import { IAddress, IStudent, Student } from "../models/studentModel";
 
 export class DbSeeder {

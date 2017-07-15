@@ -1,17 +1,17 @@
 import { NextFunction, Request, Response, Router } from "express";
 
-import { IStudent } from "../models/studentModel";
-import { IStudentRepository } from "../repositories/student.repository";
+import { IStudent, Student } from "../../../models/studentModel";
+import {IStudentRepository , StudentRepository } from "../../../repositories/student.repository";
 
-export class StudentsRoutes {
+export class StudentController {
 
-    public studentRouter: Router;
     public student: IStudent;
+    private studentRepo: IStudentRepository;
 
-    constructor(private studentRepo: IStudentRepository) {
-        this.studentRouter = Router();
+    constructor(private studentRouter: Router) {
+        this.routesSet();
+        this.studentRepo = new StudentRepository(Student);
     }
-
     public routesSet() {
         this.studentRouter.route("/")
             .get((req: Request, res: Response) => {
@@ -19,7 +19,7 @@ export class StudentsRoutes {
                     .then((data) => {
                         if (data.err) {
                             res.status(500).send(data.err);
-                        }else {
+                        } else {
                             res.json(data.students);
                         }
                     });
@@ -29,7 +29,7 @@ export class StudentsRoutes {
                     .then((data) => {
                         if (data.err) {
                             res.status(500).send(data.err);
-                        }else {
+                        } else {
                             res.status(201).json(data.student);
                         }
                     });
@@ -42,10 +42,11 @@ export class StudentsRoutes {
                     if (data.err) {
                         res.status(500).send(data.err);
                     } else if (data.student) {
-    // I add the var 'object: any' to 'interface Request' in node_modules\@types\express-serve-static-core\index.d.ts
+                        // I added the 'var object: any' to 'interface Request'
+                        // in node_modules\ @types\express - serve - static - core\index.d.ts
                         req.object = data.student;
                         next();
-                    }else {
+                    } else {
                         res.status(400).send({ message: "Student does not exist" });
                     }
                 });
@@ -60,7 +61,7 @@ export class StudentsRoutes {
                     .then((data) => {
                         if (data.err) {
                             res.status(500).send(data.err);
-                        }else {
+                        } else {
                             res.status(200).json(data.raw);
                         }
                     });
@@ -70,27 +71,28 @@ export class StudentsRoutes {
                     .then((data) => {
                         if (data.err) {
                             res.status(500).send(data.err);
-                        }else {
+                        } else {
                             res.status(204).send({ message: "Deleted" });
                         }
                     });
             });
 
-       // 404
+        // 404
         this.studentRouter.use((req, res, next) => {
-           res.status(404);
+            res.status(404);
 
-           // respond with json
-           if (req.accepts("json")) {
-               res.send({ error: "Not found" });
-               return;
-           }
+            // respond with json
+            if (req.accepts("json")) {
+                res.send({ error: "Not found" });
+                return;
+            }
 
-           // default to plain-text. send()
-           res.type("txt").send("Not found");
-       });
+            // default to plain-text. send()
+            res.type("txt").send("Not found");
+        });
 
-        return this.studentRouter;
+       // return this.studentRouter;
     }
+
 
 }

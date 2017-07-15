@@ -4,9 +4,9 @@ import * as http from "http";
 
 import {Student} from "../models/studentModel";
 import { DbContex } from "../mongoDb/dbContext";
-import {  DbSeeder} from "../mongoDb/dbSeeder";
+import { DbSeeder} from "../mongoDb/dbSeeder";
 import { StudentRepository } from "../repositories/student.repository";
-import { StudentsRoutes } from "../routes/routes";
+import { Router } from "../router/router";
 
 export class Server {
 
@@ -50,9 +50,7 @@ export class Server {
     }
 
     private router(): void {
-        let studentsRepo = new StudentRepository(Student);
-        let studentsRoutes = new StudentsRoutes(studentsRepo);
-        this.app.use("/api/students", studentsRoutes.routesSet());
-
+         let router = new Router();
+         router.load(this.app, "./controller");
     }
 }
