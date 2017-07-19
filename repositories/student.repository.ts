@@ -23,7 +23,9 @@ export class StudentRepository extends BaseRepository<IStudent, IStudentModel> i
         });
     }
 
-     escapeRegex(text): string {
-    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+    escapeRegex(text): string {
+        if (text) {
+            return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+        }
     }
 }

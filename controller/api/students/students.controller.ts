@@ -15,7 +15,7 @@ export class StudentController {
     public routesSet() {
         this.studentRouter.route("/")
             .get((req: Request, res: Response) => {
-                if (req.query) {
+                if (req.query.name) {
                     this.studentRepo.GetByName(req.query.name)
                         .then((data) => {
                             if (data.err) {
