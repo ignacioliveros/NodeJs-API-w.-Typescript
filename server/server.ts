@@ -7,6 +7,7 @@ import { DbContex } from "../mongoDb/dbContext";
 import { DbSeeder} from "../mongoDb/dbSeeder";
 import { StudentRepository } from "../repositories/student.repository";
 import { Router } from "../router/router";
+import {Enviroment, EnviromentOptions } from "./enviroment";
 
 export class Server {
 
@@ -23,7 +24,7 @@ export class Server {
     }
 
     private bootstrap() {
-        process.env.NODE_ENV = "development";
+        Enviroment.setEnviroment(EnviromentOptions.development);
         this.server = http.createServer(this.app);
         this.server.listen(this.port);
         this.server.on("listening", () => {
@@ -37,8 +38,7 @@ export class Server {
         database.open(() => {
             // Set NODE_ENV to 'development' to only run
             // the seeder when in dev mode
-            if (process.env.NODE_ENV === "development") {
-                console.log("development");
+            if (process.env.NODE_ENV === EnviromentOptions.development) {
                 seeder.init();
              }
         });

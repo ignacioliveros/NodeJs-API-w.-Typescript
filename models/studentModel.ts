@@ -30,7 +30,14 @@ const AddressSchema = new Schema({
 const StudentSchema = new Schema({
     address: [AddressSchema],
     age: Number,
-    email: { type: String, required: true },
+    email: {
+        type: String,
+        required: true,
+        validate: (email: string) => {
+            return /[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/.test(email);
+        },
+        message: "{VALUE} is not a valid email!",
+    },
     lastName: { type: String, required: true },
     name: { type: String, required: true },
 });
