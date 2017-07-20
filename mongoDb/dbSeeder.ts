@@ -20,14 +20,14 @@ export class DbSeeder {
     }
 
     private studentsSeed: IStudent[] = [{
-        name: "Ignacio",
-        lastName: "Oliveros",
+        name: "Juan",
+        lastName: "Perez",
         age: 37,
-        email: "ignacioliveros@gmail.com",
+        email: "juanperezs@gmail.com",
         address: [{
-            street: "Acuña de Figueroa",
-            number: 1511,
-            apartment: "C",
+            street: "Medrano",
+            number: 1501,
+            apartment: "B",
             floor: 8,
         },
         {
@@ -37,36 +37,38 @@ export class DbSeeder {
         ],
     },
     {
-        name: "Joanna",
-        lastName: "Roney",
+        name: "Maria",
+        lastName: "Fernandez",
         age: 38,
-        email: "joannaroney@gmail.com",
+        email: "mfernandez@gmail.com",
         address: [{
-            street: "Acuña de Figueroa",
-            number: 1511,
-            apartment: "C",
-            floor: 8,
+            street: "Rivadavia",
+            number: 2300,
+            apartment: "A",
+            floor: 2,
         }],
     },
     {
-        name: "Evangelina",
-        lastName: "Oliveros",
+        name: "Martin",
+        lastName: "Gonzalez",
         age: 39,
-        email: "evanoliveros@gmail.com",
+        email: "tinchogonzalez@gmail.com",
         address: [{
-            street: "Somosa",
-            number: 1050,
+            street: "Cordoba",
+            number: 2020,
         }],
 
     },
     {
         name: "Luis",
-        lastName: "Oliveros",
+        lastName: "Rodriguez",
         age: 70,
-        email: "luisoliveros@gmail.com",
+        email: "rluis@gmail.com",
         address: [{
-            street: "Somosa",
-            number: 1050,
+            street: "Charcas",
+            number: 2258,
+            floor: 10,
+            apartment: "D",
         }],
 
     }];
