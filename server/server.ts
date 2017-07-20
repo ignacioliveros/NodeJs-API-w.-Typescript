@@ -45,6 +45,7 @@ export class Server {
     }
 
     public initExpressMiddleWare() {
+        this.app.use(express.static('public'));
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: true }));
     }
