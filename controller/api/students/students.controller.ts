@@ -15,8 +15,8 @@ export class StudentController {
     public routesSet() {
         this.studentRouter.route("/")
             .get((req: Request, res: Response) => {
-                if (req.query.name) {
-                    this.studentRepo.GetByName(req.query.name)
+                if (req.query.fullname ) {
+                    this.studentRepo.GetByName(req.query.fullname)
                         .then((data) => {
                             if (data.err) {
                                 res.status(500).send(data.err);
@@ -30,18 +30,22 @@ export class StudentController {
                             if (data.err) {
                                 res.status(500).send(data.err);
                             } else {
-                                res.json(data.students);
+                                res.json(data.entities);
                             }
                         });
                 }
                 })
             .post((req: Request, res: Response) => {
-                this.studentRepo.Create(req.body)
+                let student: IStudent = req.body;
+                if (!student.fullName) {
+                    student.fullName = req.body.name + " " + req.body.lastName;
+                }
+                this.studentRepo.Create(student)
                     .then((data) => {
                         if (data.err) {
                             res.status(500).send(data.err);
                         } else {
-                            res.status(201).json(data.student);
+                            res.status(201).json(data.entity);
                         }
                     });
 
@@ -52,10 +56,10 @@ export class StudentController {
                 .then((data) => {
                     if (data.err) {
                         res.status(500).send(data.err);
-                    } else if (data.student) {
+                    } else if (data.entity) {
                         // I added the 'var object: any' to 'interface Request'
                         // in node_modules\ @types\express - serve - static - core\index.d.ts
-                        req.object = data.student;
+                        req.object = data.entity;
                         next();
                     } else {
                         res.status(400).send({ message: "Student does not exist" });
@@ -104,6 +108,5 @@ export class StudentController {
 
        // return this.studentRouter;
     }
-
 
 }

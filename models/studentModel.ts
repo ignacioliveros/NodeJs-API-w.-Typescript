@@ -3,6 +3,7 @@ import {  Document, model, Mongoose, Schema, Types } from "mongoose";
 export interface IStudent  {
     name: string;
     lastName: string;
+    fullName: string;
     age: number;
     email: string;
     address: IAddress[];
@@ -40,6 +41,7 @@ const StudentSchema = new Schema({
     },
     lastName: { type: String, required: true },
     name: { type: String, required: true },
+    fullName: { type: String, required: true },
 });
 
 export const Student = model<IStudentModel>("Student", StudentSchema);

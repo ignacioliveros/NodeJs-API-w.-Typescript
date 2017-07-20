@@ -1,11 +1,11 @@
 import { Document, Model} from "mongoose";
 
 export interface IBaseRepository<T> {
-    GetAll(): Promise<{ students: T[], err: any }>;
-    GetById(studentId: string): Promise<{ student: T, err: any }>;
-    Create(student: T): Promise<{ student: T, err: any }>;
-    Update(studentToUpdate: T, student: T): Promise<{ raw: any, err: any }>;
-    Delete(studentToRemove: T): Promise<{ err: any }>;
+    GetAll(): Promise<{ entities: T[], err: any }>;
+    GetById(entityId: string): Promise<{ entity: T, err: any }>;
+    Create(entity: T): Promise<{ entity: T, err: any }>;
+    Update(entityToUpdate: T, entity: T): Promise<{ raw: any, err: any }>;
+    Delete(entityToRemove: T): Promise<{ err: any }>;
 }
 
 export class BaseRepository<T, M extends T & Document> implements IBaseRepository<T> {
@@ -14,44 +14,44 @@ export class BaseRepository<T, M extends T & Document> implements IBaseRepositor
 
     }
 
-    public GetAll(): Promise<{ students: T[], err: any }> {
+    public GetAll(): Promise<{ entities: T[], err: any }> {
         return new Promise((resolve) => {
-            this.dbModel.find((err, studentModel) => {
-                let students: T[] = studentModel;
-                resolve({ students, err });
+            this.dbModel.find((err, model) => {
+                let entities: T[] = model;
+                resolve({ entities, err });
             });
         });
     }
 
-    public GetById(studentId: string): Promise<{ student: T, err: any }> {
+    public GetById(entityId: string): Promise<{ entity: T, err: any }> {
         return new Promise((resolve) => {
-            this.dbModel.findById(studentId, (err, studentModel) => {
-                let student: T = studentModel;
-                resolve({ student, err });
+            this.dbModel.findById(entityId, (err, model) => {
+                let entity: T = model;
+                resolve({ entity, err });
             });
         });
     }
 
-    public Create(student: T): Promise<{ student: T, err: any }> {
+    public Create(entity: T): Promise<{ entity: T, err: any }> {
         return new Promise((resolve) => {
-            this.dbModel.create(student, (err, studentModel) => {
-                let student: T = studentModel;
-                resolve({ student, err });
+            this.dbModel.create(entity, (err, model) => {
+                let entity: T = model;
+                resolve({ entity, err });
             });
         });
     }
 
-    public Update(studentToUpdate: T, student: T): Promise<{ raw: any, err: any }> {
+    public Update(entityToUpdate: T, entity: T): Promise<{ raw: any, err: any }> {
         return new Promise((resolve) => {
-            this.dbModel.update(studentToUpdate, student, (err, raw) => {
+            this.dbModel.update(entityToUpdate, entity, (err, raw) => {
                 resolve({ raw, err });
             });
         });
     }
 
-    public Delete(studentToRemove: T): Promise<{ err: any }> {
+    public Delete(entityToRemove: T): Promise<{ err: any }> {
         return new Promise((resolve) => {
-            this.dbModel.findByIdAndRemove(studentToRemove, (err) => {
+            this.dbModel.findByIdAndRemove(entityToRemove, (err) => {
                 resolve({ err });
             });
         });

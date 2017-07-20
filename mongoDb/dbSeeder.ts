@@ -14,14 +14,18 @@ export class DbSeeder {
     }
 
     private DbSeed() {
+        console.log("Seeding data....");
         for (let student of this.studentsSeed) {
             Student.create(student);
+            console.log("inserted customer: " + student.fullName);
         }
+        console.log("Database created and seeded");
     }
 
     private studentsSeed: IStudent[] = [{
         name: "Juan",
         lastName: "Perez",
+        fullName: "Juan Perez",
         age: 37,
         email: "juanperezs@gmail.com",
         address: [{
@@ -39,6 +43,7 @@ export class DbSeeder {
     {
         name: "Maria",
         lastName: "Fernandez",
+        fullName: "Maria Fernandez",
         age: 38,
         email: "mfernandez@gmail.com",
         address: [{
@@ -51,6 +56,7 @@ export class DbSeeder {
     {
         name: "Martin",
         lastName: "Gonzalez",
+        fullName: "Martin Gonzalez",
         age: 39,
         email: "tinchogonzalez@gmail.com",
         address: [{
@@ -62,6 +68,7 @@ export class DbSeeder {
     {
         name: "Luis",
         lastName: "Rodriguez",
+        fullName: "Luis Rodriguez",
         age: 70,
         email: "rluis@gmail.com",
         address: [{

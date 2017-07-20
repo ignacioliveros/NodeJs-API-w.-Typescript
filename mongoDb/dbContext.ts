@@ -2,7 +2,7 @@ import * as mongoose from "mongoose";
 
 export class DbContex {
 
-    private connectionString: string = "mongodb://localhost/student";
+    private connectionString: string = "mongodb://localhost/AppDb";
     connection = null;
 
     public open(callback) {
