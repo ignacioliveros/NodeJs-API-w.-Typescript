@@ -1,4 +1,4 @@
-import { Document, Model} from "mongoose";
+import { Document, Model} from 'mongoose';
 
 export interface IBaseRepository<T> {
     GetAll(): Promise<{ entities: T[], err: any }>;
@@ -17,7 +17,7 @@ export class BaseRepository<T, M extends T & Document> implements IBaseRepositor
     public GetAll(): Promise<{ entities: T[], err: any }> {
         return new Promise((resolve) => {
             this.dbModel.find((err, model) => {
-                let entities: T[] = model;
+                const entities: T[] = model;
                 resolve({ entities, err });
             });
         });
@@ -26,7 +26,7 @@ export class BaseRepository<T, M extends T & Document> implements IBaseRepositor
     public GetById(entityId: string): Promise<{ entity: T, err: any }> {
         return new Promise((resolve) => {
             this.dbModel.findById(entityId, (err, model) => {
-                let entity: T = model;
+                const entity: T = model;
                 resolve({ entity, err });
             });
         });
@@ -35,7 +35,7 @@ export class BaseRepository<T, M extends T & Document> implements IBaseRepositor
     public Create(entity: T): Promise<{ entity: T, err: any }> {
         return new Promise((resolve) => {
             this.dbModel.create(entity, (err, model) => {
-                let entity: T = model;
+                const entity: T = model;
                 resolve({ entity, err });
             });
         });

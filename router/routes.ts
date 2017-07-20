@@ -3,10 +3,10 @@
 // I just made a few changes to make it work with Typescript.
 // This Class loops through all the ./Controller subfolders and creates routes on the fly.
 
-import { Router } from "express";
-import * as fs from "fs";
-import * as path from "path";
-import { StudentController } from "../controller/api/students/students.controller";
+import { Router } from 'express';
+import * as fs from 'fs';
+import * as path from 'path';
+import { StudentController } from '../controller/api/students/students.controller';
 
 export class Routes {
 
@@ -25,21 +25,21 @@ export class Routes {
             if (stat.isDirectory()) {
                 // Recursively walk-through folders
                 this.load(app, fullName);
-            } else if (file.toLowerCase().indexOf(".ts") > - 1) {
+            } else if (file.toLowerCase().indexOf('.ts') > - 1) {
                 // Grab path to JavaScript file and use it to construct the route
-                let dirs = path.dirname(fullName).split(path.sep);
+                const dirs = path.dirname(fullName).split(path.sep);
                 if (dirs[0].toLowerCase() === this.startFolder.toLowerCase()) {
                     dirs.splice(0, 1);
                 }
                 const router = Router();
-                const pathNoExt = fullName.substring(0, fullName.lastIndexOf("."));
+                const pathNoExt = fullName.substring(0, fullName.lastIndexOf('.'));
 
                 // Generate the route
-                const baseRoute = "/" + dirs.join("/");
-                console.log("Created route: " + baseRoute + " for " + fullName);
+                const baseRoute = '/' + dirs.join('/');
+                console.log('Created route: ' + baseRoute + ' for ' + fullName);
 
-                // Load the JavaScript file ("controller") and pass the router to it
-                const controller = require("../" + pathNoExt);
+                // Load the JavaScript file ('controller') and pass the router to it
+                const controller = require('../' + pathNoExt);
 
                 const controllerClass = Object.getOwnPropertyNames(controller)[1];
                                 // Create an instance of each controller class

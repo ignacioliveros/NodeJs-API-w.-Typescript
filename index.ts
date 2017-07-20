@@ -1,3 +1,3 @@
-import { Server } from "./server/server";
+import { Server } from './server/server';
 
-let server = new Server();
+const server = new Server();

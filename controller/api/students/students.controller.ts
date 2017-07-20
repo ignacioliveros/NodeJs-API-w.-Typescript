@@ -1,7 +1,7 @@
-import { NextFunction, Request, Response, Router } from "express";
+import { NextFunction, Request, Response, Router } from 'express';
 
-import { IStudent, Student } from "../../../models/studentModel";
-import {IStudentRepository , StudentRepository } from "../../../repositories/student.repository";
+import { IStudent, Student } from '../../../models/studentModel';
+import {IStudentRepository , StudentRepository } from '../../../repositories/student.repository';
 
 export class StudentController {
 
@@ -13,7 +13,7 @@ export class StudentController {
         this.studentRepo = new StudentRepository(Student);
     }
     public routesSet() {
-        this.studentRouter.route("/")
+        this.studentRouter.route('/')
             .get((req: Request, res: Response) => {
                 if (req.query.fullname ) {
                     this.studentRepo.GetByName(req.query.fullname)
@@ -38,7 +38,7 @@ export class StudentController {
             .post((req: Request, res: Response) => {
                 let student: IStudent = req.body;
                 if (!student.fullName) {
-                    student.fullName = req.body.name + " " + req.body.lastName;
+                    student.fullName = req.body.name + ' ' + req.body.lastName;
                 }
                 this.studentRepo.Create(student)
                     .then((data) => {
@@ -51,7 +51,7 @@ export class StudentController {
 
             });
 
-        this.studentRouter.use("/:studentId", (req: Request, res: Response, next: NextFunction) => {
+        this.studentRouter.use('/:studentId', (req: Request, res: Response, next: NextFunction) => {
             this.studentRepo.GetById(req.params.studentId)
                 .then((data) => {
                     if (data.err) {
@@ -62,12 +62,12 @@ export class StudentController {
                         req.object = data.entity;
                         next();
                     } else {
-                        res.status(400).send({ message: "Student does not exist" });
+                        res.status(400).send({ message: 'Student does not exist' });
                     }
                 });
         });
 
-        this.studentRouter.route("/:studentId")
+        this.studentRouter.route('/:studentId')
             .get((req: Request, res: Response) => {
                 res.json(req.object);
             })
@@ -87,7 +87,7 @@ export class StudentController {
                         if (data.err) {
                             res.status(500).send(data.err);
                         } else {
-                            res.status(204).send({ message: "Deleted" });
+                            res.status(204).send({ message: 'Deleted' });
                         }
                     });
             });
@@ -97,13 +97,13 @@ export class StudentController {
             res.status(404);
 
             // respond with json
-            if (req.accepts("json")) {
-                res.send({ error: "Not found" });
+            if (req.accepts('json')) {
+                res.send({ error: 'Not found' });
                 return;
             }
 
             // default to plain-text. send()
-            res.type("txt").send("Not found");
+            res.type('txt').send('Not found');
         });
 
        // return this.studentRouter;

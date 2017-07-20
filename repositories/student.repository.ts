@@ -1,6 +1,6 @@
-import { Document, Model } from "mongoose";
-import { IStudent, IStudentModel, Student } from "../models/studentModel";
-import { BaseRepository, IBaseRepository } from "./base.repository";
+import { Document, Model } from 'mongoose';
+import { IStudent, IStudentModel, Student } from '../models/studentModel';
+import { BaseRepository, IBaseRepository } from './base.repository';
 
 // tslint:disable-next-line:no-empty-interface
 export interface IStudentRepository extends BaseRepository<IStudent, IStudentModel> {
@@ -15,9 +15,9 @@ export class StudentRepository extends BaseRepository<IStudent, IStudentModel> i
 
     GetByName(fullName: string): Promise<{ students: IStudent[], err: any }> {
         return new Promise((resolve) => {
-            let regex = new RegExp(this.escapeRegex(fullName), "gi");
+            const regex = new RegExp(this.escapeRegex(fullName), 'gi');
             Student.find({ fullName: regex }, (err, studentModel) => {
-                let students: IStudent[] = studentModel;
+                const students: IStudent[] = studentModel;
                 resolve({ students, err });
             });
         });
@@ -25,7 +25,7 @@ export class StudentRepository extends BaseRepository<IStudent, IStudentModel> i
 
     escapeRegex(text): string {
         if (text) {
-            return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+            return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
         }
     }
 }

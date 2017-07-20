@@ -1,13 +1,13 @@
-import * as bodyParser from "body-parser";
-import * as express from "express";
-import * as http from "http";
+import * as bodyParser from 'body-parser';
+import * as express from 'express';
+import * as http from 'http';
 
-import {Student} from "../models/studentModel";
-import { DbContex } from "../mongoDb/dbContext";
-import { DbSeeder} from "../mongoDb/dbSeeder";
-import { StudentRepository } from "../repositories/student.repository";
-import { Routes } from "../router/routes";
-import {Enviroment, EnviromentOptions } from "./enviroment";
+import {Student} from '../models/studentModel';
+import { DbContex } from '../mongoDb/dbContext';
+import { DbSeeder} from '../mongoDb/dbSeeder';
+import { StudentRepository } from '../repositories/student.repository';
+import { Routes } from '../router/routes';
+import {Enviroment, EnviromentOptions } from './enviroment';
 
 export class Server {
 
@@ -27,14 +27,14 @@ export class Server {
         Enviroment.setEnviroment(EnviromentOptions.development);
         this.server = http.createServer(this.app);
         this.server.listen(this.port);
-        this.server.on("listening", () => {
+        this.server.on('listening', () => {
             console.log(`Listening on port ` + this.port);
         });
     }
 
     private dbConnection() {
-        let database = new DbContex();
-        let seeder = new DbSeeder();
+        const database = new DbContex();
+        const seeder = new DbSeeder();
         database.open(() => {
             // Set NODE_ENV to 'development' to only run
             // the seeder when in dev mode
@@ -50,7 +50,7 @@ export class Server {
     }
 
     private router(): void {
-         let router = new Routes();
-         router.load(this.app, "./controller");
+         const router = new Routes();
+         router.load(this.app, './controller');
     }
 }

@@ -1,4 +1,4 @@
-import {  Document, model, Mongoose, Schema, Types } from "mongoose";
+import {  Document, model, Mongoose, Schema, Types } from 'mongoose';
 
 export interface IStudent  {
     name: string;
@@ -37,11 +37,11 @@ const StudentSchema = new Schema({
         validate: (email: string) => {
             return /[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/.test(email);
         },
-        message: "{VALUE} is not a valid email!",
+        message: '{VALUE} is not a valid email!',
     },
     lastName: { type: String, required: true },
     name: { type: String, required: true },
     fullName: { type: String, required: true },
 });
 
-export const Student = model<IStudentModel>("Student", StudentSchema);
+export const Student = model<IStudentModel>('Student', StudentSchema);
