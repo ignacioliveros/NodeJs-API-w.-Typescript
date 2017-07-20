@@ -6,7 +6,7 @@ import {Student} from "../models/studentModel";
 import { DbContex } from "../mongoDb/dbContext";
 import { DbSeeder} from "../mongoDb/dbSeeder";
 import { StudentRepository } from "../repositories/student.repository";
-import { Router } from "../router/router";
+import { Routes } from "../router/routes";
 import {Enviroment, EnviromentOptions } from "./enviroment";
 
 export class Server {
@@ -50,7 +50,7 @@ export class Server {
     }
 
     private router(): void {
-         let router = new Router();
+         let router = new Routes();
          router.load(this.app, "./controller");
     }
 }
