@@ -36,7 +36,7 @@ export class StudentController {
                 }
                 })
             .post((req: Request, res: Response) => {
-                let student: IStudent = req.body;
+                const student: IStudent = req.body;
                 if (!student.fullName) {
                     student.fullName = req.body.name + ' ' + req.body.lastName;
                 }
