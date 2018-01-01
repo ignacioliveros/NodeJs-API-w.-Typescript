@@ -55,3 +55,4 @@ export class Server {
          router.load(this.app, './controller');
     }
 }
+const server = new Server();

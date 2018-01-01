@@ -4,7 +4,6 @@ import { IAddress, IStudent, Student } from '../models/studentModel';
 
 export class DbSeeder {
 
-
     private studentsSeed: IStudent[] = [{
         name: 'Juan',
         lastName: 'Perez',
@@ -73,15 +72,13 @@ export class DbSeeder {
             });
     }
 
-
     private DbSeed() {
         console.log('Seeding data....');
         for (const student of this.studentsSeed) {
             Student.create(student);
-            console.log('inserted customer: ' + student.fullName);
+            console.log('inserted student: ' + student.fullName);
         }
         console.log('Database created and seeded');
     }
-
 
 }

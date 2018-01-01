@@ -6,7 +6,7 @@
     "type": "git",
     "url": "https://github.com/ignacioliveros/NodeJs-API-w.-Typescript.git"
   },
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "nodemon",
     "pack": "webpack --config webpack.config.js",
@@ -15,7 +15,6 @@
   "author": "LIO",
   "license": "ISC",
   "dependencies": {
-   
     "express": "^4.15.3"
   },
   "devDependencies": {
@@ -25,7 +24,7 @@
     "body-parser": "^1.17.2",
     "core-js": "^2.4.1",
     "mongoose": "^4.11.1",
-    "nodemon": "^1.11.0",
+    "nodemon": "^1.14.7",
     "ts-loader": "^2.2.2",
     "tslint": "^5.5.0",
     "typescript": "^2.4.1",

@@ -6,11 +6,10 @@
 import { Router } from 'express';
 import * as fs from 'fs';
 import * as path from 'path';
-import { StudentController } from '../controller/api/students/students.controller';
 
 export class Routes {
 
-    startFolder = null;
+    private startFolder = null;
     public load(app, folderName) {
 
         if (!this.startFolder) {
